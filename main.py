@@ -6,6 +6,12 @@ from admin.admin_sees_what import (
     admin_chooses_users,
     admin_sees_choices,
 )
+from user.user_sees_what import (
+    user_chooses_logout,
+    user_chooses_shipments,
+    user_chooses_tracking,
+    user_sees_choices,
+)
 
 # Names Variables
 continue_program = True
@@ -40,7 +46,19 @@ while continue_program == True:
                 print("Invalid choice. Please try again.")
     elif username == "user" and password == "user123":
         print("Welcome User!")
-        continue_program = True
+        while True:
+            user_sees_choices()
+            user_choice = input("Choose an option: ")
+
+            if user_choice == "1":
+                user_chooses_shipments()
+            elif user_choice == "2":
+                user_chooses_tracking()
+            elif user_choice == "3":
+                user_chooses_logout()
+                break
+            else:
+                print("Invalid choice. Please try again.")
     else:
         print("Invalid username or password. Please try again.")
         continue_program = True
