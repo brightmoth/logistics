@@ -1,4 +1,5 @@
 # Imports
+from admin.user_accounts import authenticate_user
 from admin.admin_sees_what import (
     admin_chooses_add_user,
     admin_chooses_delete_user,
@@ -14,26 +15,24 @@ from user.user_sees_what import (
 )
 
 # Names Variables
-continue_program = True
-account_type = []
-username = []
-password = []
+quit_program = False
 
 # Code
-print("current accounts include \n1. Admin\n2. User")
-print("To login as admin use username: admin and password: admin123")
-print("To login as user use username: user and password: user123")
-while continue_program == True:
+print("Current account types include: Admin and User")
+while not quit_program:
     username = input("Enter your username: ")
     password = input("Enter your password: ")
 
     if username == "admin" and password == "admin123":
         print("Welcome Admin!")
-        while True:
+        while not quit_program:
             admin_sees_choices()
             admin_choice = input("Choose an option: ")
 
-            if admin_choice == "1":
+            if admin_choice.strip().upper() == "Q!":
+                quit_program = True
+                break
+            elif admin_choice == "1":
                 admin_chooses_users()
             elif admin_choice == "2":
                 admin_chooses_add_user()
@@ -44,16 +43,21 @@ while continue_program == True:
                 break
             else:
                 print("Invalid choice. Please try again.")
-    elif username == "user" and password == "user123":
+    elif (username == "user" and password == "user123") or authenticate_user(
+        username, password
+    ):
         print("Welcome User!")
-        while True:
+        while not quit_program:
             user_sees_choices()
             user_choice = input("Choose an option: ")
 
-            if user_choice == "1":
-                user_chooses_shipments()
+            if user_choice.strip().upper() == "Q!":
+                quit_program = True
+                break
+            elif user_choice == "1":
+                user_chooses_shipments(username)
             elif user_choice == "2":
-                user_chooses_tracking()
+                user_chooses_tracking(username)
             elif user_choice == "3":
                 user_chooses_logout()
                 break
@@ -61,4 +65,3 @@ while continue_program == True:
                 print("Invalid choice. Please try again.")
     else:
         print("Invalid username or password. Please try again.")
-        continue_program = True

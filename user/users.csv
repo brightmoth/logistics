@@ -1,0 +1,2 @@
+username,email,phone_number,address,postalcode,date_of_birth,gender,registration_date,password_hash
+testuser1,testuser1@testmail.com,123-456-7890,123 Test St Test City,1497,1990-01-01,Male,2021-01-01,

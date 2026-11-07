@@ -1,64 +1,112 @@
 # Logistics Management Platform
 
-A single control platform for a logistics company, with a web portal for dispatchers and managers and a companion mobile app for drivers and field personnel. It should connect operations, tracking, administration, and customer access from booking through final delivery and billing.
+A logistics management platform that aims to connect shipment administration,
+dispatch, tracking, drivers, customers, and billing in one place. This repository
+is an early command-line prototype: it currently demonstrates basic account
+management and shipment lookup using CSV files. The larger platform described
+below is the intended direction, not functionality that is already implemented.
 
-## Core operational modules
+## What works today
 
-### Fleet and driver management
+- Sign in as an administrator or user.
+- Add users, list user details, and delete users from `user/users.csv` through
+  the administrator menu.
+- Set a password for a user already in the CSV or create a new account. New
+  account passwords are stored as salted PBKDF2 hashes.
+- Sign in with accounts that have a password hash in the CSV.
+- View shipment details and look up a shipment by its shipment number.
+- Enter `Q!` in either role's menu to quit, or choose `4` / `3` to log out.
 
-- Show active vehicles on a live GPS map, including location, speed, route history, and idle time where tracking data is available.
-- Give drivers a mobile workflow to view assigned jobs, update shipment status, capture digital proof of delivery (POD), and log work hours.
-- Track vehicle availability and capacity, and manage servicing, inspections, fuel logs, and breakdown reports with reminders.
-- Manage driver assignments and relevant credentials or qualifications.
+The initial shipment data is in `user/track_shipment.csv`. That sample file does
+not yet have an owner column, so its shipment is available only to the built-in
+`user` account. To associate shipments with CSV accounts, add a `username`
+column and set it to the account that owns each row. Users can then see and
+track only rows matching their signed-in username.
 
-### Dispatch and route optimization
+## Running the prototype
 
-- Plan routes around vehicle capacity, delivery windows, traffic, distance, and fuel efficiency.
-- Let dispatchers assign loads to company drivers, vehicles, or third-party carriers, with a clear view of availability and schedules.
-- Support quick reassignment and replanning when orders or operating conditions change.
-- Provide dispatch tools such as a load builder, carrier rate comparison, and alerts for exceptions needing attention.
+Run from the repository root with Python:
 
-### Orders and warehouse oversight
+```bash
+python main.py
+```
 
-- Create quotes and bookings, capture pickup and delivery details, cargo, service level, deadlines, and handling requirements.
-- Track each order through clear stages, from booking to pickup, in transit, delivery, and completion.
-- Manage receiving, storage, picking, packing, loading, and stock levels across multiple warehouses.
-- Support bin locations and barcode or QR scanning for inventory workflows.
-- Record inventory movement and connect warehouse activity to the shipments it supports.
+The current demonstration logins are:
 
-### Tracking and notifications
+| Account | Username | Password |
+|---|---|---|
+| Administrator | `admin` | `admin123` |
+| Built-in user | `user` | `user123` |
 
-- Display shipment and vehicle progress, route details, and estimated arrival times where tracking data is available.
-- Record pickup and delivery confirmations, including digital POD.
-- Notify staff and customers about status changes, delays, exceptions, and missing information.
+These credentials are hard-coded for demonstration purposes and are not suitable
+for a deployed or publicly accessible system. Users in `user/users.csv` need a
+password hash to sign in. For an existing CSV row without one, sign in as the
+administrator and use **Add a new user** with that username to set its password.
 
-### Billing, compliance, and analytics
+## Current limitations
 
-- Calculate freight charges using applicable rates, tolls, and fuel surcharges; prepare invoices and record payment status.
-- Store shipment documents such as bills of lading (BOLs), customs paperwork, permits, PODs, and receipts.
-- Keep documents linked to their shipment and preserve an audit trail of important changes.
-- Report on on-time delivery (OTD), cost per mile, vehicle utilization, carrier performance, and shipment profitability.
+- This is a command-line prototype, not a web portal or mobile application.
+- The administrator account and its password are hard-coded; account roles and
+  permissions are not managed in the CSV.
+- User and shipment records use local CSV files, without a database, concurrent
+  access controls, or an audit log.
+- Shipment data is sample data. There is no live GPS integration, shipment
+  status update workflow, or notification system.
+- Creating users does not create or assign shipments. Shipment ownership must
+  be entered in the shipment CSV.
+- There is no password reset, account recovery, or production-ready sign-in
+  protection.
 
-## Portals by user role
+## Intended platform
 
-| Role | Key interface features |
-|---|---|
-| Dispatchers and operations managers | Central map dashboard, load builder, dispatch and reassignment tools, carrier rate comparison, shipment and fleet status, and exception alerts. |
-| Drivers and field staff | Mobile task list, navigation, status updates, digital POD capture, work-hour logging, and offline access for essential workflows. |
-| Customers and clients | Self-service booking and quote requests, shipment tracking, document uploads, invoice viewing, and a way to contact support. |
-| Carriers and suppliers | Access to assigned work, relevant shipment updates, and document sharing. |
-| Finance and administrators | Quotes, freight charges, invoices, payment status, costs, user permissions, and operational reports. |
+The long-term goal is a single logistics platform for operations from booking
+through final delivery and billing. The planned capabilities include:
 
-## Access, integrations, and reliability
+### Shipments, dispatch, and tracking
 
-- Use secure sign-in and role-based permissions so each user sees only relevant information and actions.
-- Make driver workflows mobile-friendly and usable in areas with limited connectivity; sync updates when a connection returns.
-- Integrate with accounting, mapping and navigation, messaging, customer management, and carrier systems as needed to reduce duplicate data entry.
-- Keep one reliable shared record per shipment so operations, drivers, customers, partners, and finance teams work from consistent information.
+- Create bookings with pickup and delivery details, cargo, service levels, and
+  handling requirements.
+- Assign loads to drivers, vehicles, or carriers and support dispatch changes.
+- Track shipment status, vehicle progress, and estimated arrival times.
+- Notify staff and customers about status changes, delays, and exceptions.
+- Capture delivery confirmation, including proof of delivery (POD).
 
-## Suggested first release
+### Fleet, drivers, and warehouses
 
-Start with booking and shipment records, dispatch, driver assignments, status tracking, customer updates, digital POD, document storage, and basic invoicing. Add route optimization, warehouse scanning, advanced analytics, and deeper integrations as the company’s needs grow.
+- Manage drivers, vehicles, availability, capacity, servicing, inspections, and
+  fuel records.
+- Give drivers a mobile workflow for assigned jobs, status updates, navigation,
+  POD capture, and work-hour logging.
+- Manage warehouse receiving, storage, picking, packing, loading, and inventory.
+- Support barcode or QR scanning and shipment-linked inventory records.
+
+### Billing, documents, and reporting
+
+- Calculate freight charges and prepare invoices while tracking payment status.
+- Store shipment documents such as bills of lading (BOLs), permits, customs
+  paperwork, receipts, and PODs.
+- Keep an audit trail for important record changes.
+- Report on on-time delivery (OTD), costs, vehicle utilization, carrier
+  performance, and shipment profitability.
+
+### Portals and integrations
+
+- Provide role-appropriate tools for dispatchers, drivers, customers, carriers,
+  finance staff, and administrators.
+- Add customer booking, tracking, document uploads, invoice viewing, and support.
+- Support mobile and offline driver workflows.
+- Integrate with mapping, messaging, accounting, customer-management, and
+  carrier systems as the platform develops.
+
+## Suggested next steps
+
+1. Add shipment creation and assignment so each shipment has an owning username.
+2. Replace CSV storage with a database and validate records consistently.
+3. Move administrator credentials into a secure account and role system.
+4. Add shipment status updates and delivery confirmation.
+5. Build dispatcher, driver, and customer interfaces around the shared shipment
+   records.
+6. Add integrations, notifications, billing, and reporting incrementally.
 
 ## Abbreviations
 

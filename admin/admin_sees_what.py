@@ -1,4 +1,7 @@
 # Imports
+from admin.add_user import add_user
+from admin.delete_user import delete_user
+from admin.view_all_users import view_all_users
 
 # Names Variables
 
@@ -11,18 +14,16 @@ def admin_sees_choices():
     print("2. Add a new user")
     print("3. Delete a user")
     print("4. Logout")
+    print("Q! Quit program")
 
 def admin_chooses_users():
-    print("Admin has chosen to view all users.")
-    # Code to display all users would go here
+    view_all_users()
 
 def admin_chooses_add_user():
-    print("Admin has chosen to add a new user.")
-    # Code to add a new user would go here
+    add_user()
 
 def admin_chooses_delete_user():
-    print("Admin has chosen to delete a user.")
-    # Code to delete a user would go here
+    delete_user()
 
 def admin_chooses_logout():
     print("Admin has chosen to logout.")
