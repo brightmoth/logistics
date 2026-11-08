@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 180" role="img" aria-labelledby="title description">
+  <title id="title">MoveWise quick-delivery logo concept</title>
+  <desc id="description">A fine mint motion line trails a right-facing teal truck above the MoveWise wordmark.</desc>
+  <rect width="640" height="180" rx="24" fill="#FFFFFF"/>
+  <g fill="none" stroke="#39A985" stroke-linecap="round">
+    <path d="M32 44h160" stroke-width="3"/>
+    <path d="M72 57h120" stroke-width="3"/>
+    <path d="M125 70h67" stroke-width="3"/>
+  </g>
+  <g stroke="#174A50" stroke-linejoin="round" stroke-width="3">
+    <path d="M214 38h91v53h-91z" fill="#EAF5F1"/>
+    <path d="M305 53h38l26 25v13h-64z" fill="#174A50"/>
+    <path d="M313 59h25l18 18h-43z" fill="#FFFFFF" stroke="none"/>
+  </g>
+  <circle cx="238" cy="96" r="10" fill="#263238"/>
+  <circle cx="238" cy="96" r="4" fill="#FFFFFF"/>
+  <circle cx="342" cy="96" r="10" fill="#263238"/>
+  <circle cx="342" cy="96" r="4" fill="#FFFFFF"/>
+  <text x="145" y="153" fill="#174A50" font-family="Arial, Helvetica, sans-serif" font-size="54" font-weight="700" letter-spacing="-2">MoveWise</text>
+</svg>
