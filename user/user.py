@@ -1,5 +1,6 @@
 # imports
 import csv
+from datetime import date, datetime
 from pathlib import Path
 
 # names variable
@@ -62,3 +63,66 @@ def track_a_shipment(username):
             return
 
     print("Shipment not found for your account.")
+
+
+def create_shipment(username):
+    destination = input("Enter the shipment destination: ").strip()
+    while not destination:
+        print("Destination cannot be empty.")
+        destination = input("Enter the shipment destination: ").strip()
+
+    estimated_delivery_date = input(
+        "Enter the estimated delivery date (YYYY-MM-DD): "
+    ).strip()
+    while True:
+        try:
+            parsed_date = datetime.strptime(estimated_delivery_date, "%Y-%m-%d")
+            if parsed_date.strftime("%Y-%m-%d") != estimated_delivery_date:
+                raise ValueError
+            break
+        except ValueError:
+            print("Enter a valid date in YYYY-MM-DD format.")
+            estimated_delivery_date = input(
+                "Enter the estimated delivery date (YYYY-MM-DD): "
+            ).strip()
+
+    fields, shipments = _load_shipments()
+    if not fields:
+        fields = SHIPMENT_FIELDS.copy() + ["username"]
+    else:
+        fields = list(fields)
+        if "username" not in fields:
+            for shipment in shipments:
+                shipment["username"] = "user"
+        for field in SHIPMENT_FIELDS:
+            if field not in fields:
+                fields.append(field)
+        if "username" not in fields:
+            fields.append("username")
+
+    existing_numbers = {
+        shipment.get("shipment_number", "").strip() for shipment in shipments
+    }
+    shipment_number = 1
+    while f"SP-{shipment_number:06d}" in existing_numbers:
+        shipment_number += 1
+
+    today = date.today().isoformat()
+    shipment = {
+        "shipment_number": f"SP-{shipment_number:06d}",
+        "status": "Booked",
+        "creation_date": today,
+        "destination": destination,
+        "estimated_delivery_date": estimated_delivery_date,
+        "current_location": "Pending pickup",
+        "last_updated": today,
+        "username": username,
+    }
+    shipments.append(shipment)
+
+    with SHIPMENTS_FILE.open("w", newline="", encoding="utf-8") as file:
+        writer = csv.DictWriter(file, fieldnames=fields)
+        writer.writeheader()
+        writer.writerows(shipments)
+
+    print(f"Shipment {shipment['shipment_number']} created successfully.")

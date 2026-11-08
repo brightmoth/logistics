@@ -15,12 +15,14 @@ below is the intended direction, not functionality that is already implemented.
   account passwords are stored as salted PBKDF2 hashes.
 - Sign in with accounts that have a password hash in the CSV.
 - View shipment details and look up a shipment by its shipment number.
-- Enter `Q!` in either role's menu to quit, or choose `4` / `3` to log out.
+- Create shipments by entering a destination and estimated delivery date;
+  shipments are saved to the CSV and associated with the signed-in user.
+- Enter `Q!` in either role's menu to quit, or choose `4` to log out.
 
 The initial shipment data is in `user/track_shipment.csv`. That sample file does
 not yet have an owner column, so its shipment is available only to the built-in
-`user` account. To associate shipments with CSV accounts, add a `username`
-column and set it to the account that owns each row. Users can then see and
+`user` account. Creating the first shipment adds a `username` column and
+preserves the sample shipment's built-in user ownership. Users can then see and
 track only rows matching their signed-in username.
 
 ## Running the prototype
@@ -52,8 +54,8 @@ administrator and use **Add a new user** with that username to set its password.
   access controls, or an audit log.
 - Shipment data is sample data. There is no live GPS integration, shipment
   status update workflow, or notification system.
-- Creating users does not create or assign shipments. Shipment ownership must
-  be entered in the shipment CSV.
+- Users can create bookings, but there is no administrator or dispatcher
+  workflow for assigning shipments or managing their operational status.
 - There is no password reset, account recovery, or production-ready sign-in
   protection.
 

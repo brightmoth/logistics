@@ -9,6 +9,7 @@ from admin.admin_sees_what import (
 )
 from user.user_sees_what import (
     user_chooses_logout,
+    user_creates_shipment,
     user_chooses_shipments,
     user_chooses_tracking,
     user_sees_choices,
@@ -59,6 +60,8 @@ while not quit_program:
             elif user_choice == "2":
                 user_chooses_tracking(username)
             elif user_choice == "3":
+                user_creates_shipment(username)
+            elif user_choice == "4":
                 user_chooses_logout()
                 break
             else:
