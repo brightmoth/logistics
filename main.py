@@ -3,6 +3,7 @@ from admin.user_accounts import authenticate_user
 from admin.admin_sees_what import (
     admin_chooses_add_user,
     admin_chooses_delete_user,
+    admin_edits_userinfo,
     admin_chooses_logout,
     admin_chooses_users,
     admin_sees_choices,

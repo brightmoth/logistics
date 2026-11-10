@@ -11,6 +11,8 @@ below is the intended direction, not functionality that is already implemented.
 - Sign in as an administrator or user.
 - Add users, list user details, and delete users from `user/users.csv` through
   the administrator menu.
+- Edit existing users' email, phone number, address, postal code, date of birth,
+  and gender through the administrator menu; blank inputs leave values unchanged.
 - Set a password for a user already in the CSV or create a new account. New
   account passwords are stored as salted PBKDF2 hashes.
 - Sign in with accounts that have a password hash in the CSV.
@@ -102,7 +104,8 @@ through final delivery and billing. The planned capabilities include:
 
 ## Suggested next steps
 
-1. Add shipment creation and assignment so each shipment has an owning username.
+1. Add shipment assignment so dispatchers can allocate bookings to drivers,
+   vehicles, or carriers.
 2. Replace CSV storage with a database and validate records consistently.
 3. Move administrator credentials into a secure account and role system.
 4. Add shipment status updates and delivery confirmation.
