@@ -12,8 +12,13 @@ username_user = "user"
 password_admin = "admin123"
 password_user = "user123"
 
-path_to_users_file = Path(__file__).resolve().parent / "users.csv"
-path_to_users_status_file = "users_status.csv"
+user_csv_folder = Path(__file__).parent / "User CSVs"
+path_to_users_file = user_csv_folder / "users.csv"
+path_to_users_status_file = user_csv_folder / "users_status.csv"
+path_to_denied_users_file = user_csv_folder / "denied_users.csv"
+path_to_approved_users_file = user_csv_folder / "approved_users.csv"
+
+
 
 options_for_admin = [
     "1. View Users",
@@ -81,7 +86,6 @@ while continue_using:
                     # Add code to remove user from users.csv and users_status.csv
                 elif admin_choice == "4":
                     print("You selected: Approve/Reject User")
-                    # Add code to approve or reject user from users_status.csv
                 elif admin_choice == "5":
                     continue_using = False
                 else:
@@ -118,6 +122,10 @@ while continue_using:
                     with path_to_users_file.open("a", encoding="utf-8") as users_file:
                         users_file.write(f"{username}, {password}, {email}, {company_individual}, {street_address}, {city}, {province}, {postal_code}\n")
 
+                    with path_to_users_status_file.open("a", encoding="utf-8") as status_file:
+                        status_file.write(f"{username},pending\n")
+
+                    print("Account status pending")
 
                 elif user_choice == "2":
                     print("You selected: View Profile")
