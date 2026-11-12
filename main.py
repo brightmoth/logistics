@@ -10,18 +10,23 @@ username_user = "user"
 password_admin = "admin123"
 password_user = "user123"
 
+path_to_users_file = "users.csv"
+path_to_users_status_file = "users_status.csv"
+
 options_for_admin = [
     "1. View Users",
     "2. Add User",
     "3. Remove User",
-    "4. Exit",
+    "4. Approve/Reject User",
+    "5. Exit"
 ]
 
 options_for_user = [
-    "1. View Profile",
-    "2. Update Profile",
-    "3. Change Password",
-    "4. Exit",
+    "1. Create Account",
+    "2. View Profile",
+    "3. Update Profile",
+    "4. Change Password",
+    "5. Exit"
 ]
 
 # Code
