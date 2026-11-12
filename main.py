@@ -29,6 +29,21 @@ options_for_user = [
     "5. Exit"
 ]
 
+
+
+# Need to add
+    #Admin option for approve works by looking for user with status "pending" in the users_status.csv file. If found, it will prompt the admin to approve or reject the user. If approved, the user's status will be updated to "approved" in the users_status.csv file. If rejected, the user's status will be updated to "rejected".
+    # User filles in info and writes to users.csv, then we automatically add the user to users_status.csv with status "pending". The admin can then approve or reject the user.
+    # Admin would use something like:
+        # with open("example.txt", "a", encoding="utf-8") as f:
+        # f.write("Appended line\n")
+    # User needs to following added somehow
+        # with open("example.txt", "w", encoding="utf-8") as f:
+        # f.write("First line\n")
+
+# Laters problem
+    # We will later have it write to a database instead of a csv file, but for now we will use csv files for simplicity.
+    # Add cleaner CLI Interface with better formatting and colors for better user experience.(until we have web interface)
 # Code
 
 while continue_using:
