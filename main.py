@@ -1,5 +1,7 @@
 # Imports
 
+from pathlib import Path
+
 
 
 # Named Variables
@@ -10,7 +12,7 @@ username_user = "user"
 password_admin = "admin123"
 password_user = "user123"
 
-path_to_users_file = "users.csv"
+path_to_users_file = Path(__file__).resolve().parent / "users.csv"
 path_to_users_status_file = "users_status.csv"
 
 options_for_admin = [
@@ -68,10 +70,20 @@ while continue_using:
                     print(option)
                 admin_choice = input("Enter your choice: ")
 
-                if admin_choice == "4":
+                if admin_choice == "1":
+                    print("You selected: View Users")
+                    # Add code to view users from users.csv
+                elif admin_choice == "2":
+                    print("You selected: Add User")
+                    # Add code to add user to users.csv and users_status.csv with status "pending"
+                elif admin_choice == "3":
+                    print("You selected: Remove User")
+                    # Add code to remove user from users.csv and users_status.csv
+                elif admin_choice == "4":
+                    print("You selected: Approve/Reject User")
+                    # Add code to approve or reject user from users_status.csv
+                elif admin_choice == "5":
                     continue_using = False
-                elif admin_choice in {"1", "2", "3"}:
-                    print(f"You selected: {options_for_admin[int(admin_choice) - 1]}")
                 else:
                     print("Invalid selection. Please try again.")
         else:
@@ -92,10 +104,32 @@ while continue_using:
                     print(option)
                 user_choice = input("Enter your choice: ")
 
-                if user_choice == "4":
+                if user_choice == "1":
+                    print("You selected: Create Account")
+                    username = input("Enter a username: ")
+                    password = input("Enter a password: ")
+                    email = input("Enter an email: ")
+                    company_individual = input("Enter company or individual: ")
+                    street_address = input("Enter street address: ")
+                    city = input("Enter city: ")
+                    province = input("Enter province: ")
+                    postal_code = input("Enter postal code: ")
+
+                    with path_to_users_file.open("a", encoding="utf-8") as users_file:
+                        users_file.write(f"{username}, {password}, {email}, {company_individual}, {street_address}, {city}, {province}, {postal_code}\n")
+
+
+                elif user_choice == "2":
+                    print("You selected: View Profile")
+                    # Add code to view profile from users.csv
+                elif user_choice == "3":
+                    print("You selected: Update Profile")
+                    # Add code to update profile in users.csv
+                elif user_choice == "4":
+                    print("You selected: Change Password")
+                    # Add code to change password in users.csv
+                elif user_choice == "5":
                     continue_using = False
-                elif user_choice in {"1", "2", "3"}:
-                    print(f"You selected: {options_for_user[int(user_choice) - 1]}")
                 else:
                     print("Invalid selection. Please try again.")
         else:
